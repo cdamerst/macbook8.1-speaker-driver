@@ -156,10 +156,29 @@ efi_recover.py                 D3hot->D0 + EFI replay; clears the clock latch
 mb81-resume-recover.service    runs resume_recover on every resume
 patch_cirrus/                  C sources for the three module patches
 HOW_IT_WORKS.md                deep dive: the bugs and the four-part fix
+keyboard-spi/                  separate keyboard/touchpad fix (see below)
 ```
 
 `build/` is created during the build (kernel source extraction) and is
 git-ignored.
+
+---
+
+## Keyboard & touchpad fix (`keyboard-spi/`)
+
+Separate from the audio stack. Fixes the built-in keyboard/touchpad (`applespi`)
+being dead at boot and after suspend (e.g. on the lock screen):
+
+- **Boot:** `applespi-order.conf` makes the SPI controller probe before the LPSS
+  DMA engine, so it runs in PIO mode (DMA transfers time out).
+- **Suspend:** a patched `spi-pxa2xx-pci` (DKMS package `macbook12-spi`) saves and
+  restores the LPSS private clock/reset registers, which S3 wipes to zero.
+
+```bash
+cd keyboard-spi && sudo ./install.sh   # then reboot
+```
+
+Details in [`keyboard-spi/README.md`](keyboard-spi/README.md).
 
 ---
 
