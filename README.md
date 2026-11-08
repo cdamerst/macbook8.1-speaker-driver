@@ -186,4 +186,4 @@ Details in [`keyboard-spi/README.md`](keyboard-spi/README.md).
 
 Built on davidjo's [snd_hda_macbookpro](https://github.com/davidjo/snd_hda_macbookpro)
 and leifliddy's [macbook12-audio-driver](https://github.com/leifliddy/macbook12-audio-driver),
-extended for MacBook8,1's TDM speaker path and EFI clock-state quirks. The majority of this code was written by Claude. The scope of the project is outside my skillset.
+extended for MacBook8,1's TDM speaker path and EFI clock-state quirks. The majority of this code was written by Claude.
